@@ -6,6 +6,7 @@ import uploadStringBase64 from "./firebase/firestorage";
 import saveUserFirebase from "./firebase/firestore";
 import axios from "axios";
 
+
 function App() {
   const [screenACtive, setScreenActive] = useState(1);
   const [product, setProduct] = useState(0);
@@ -69,7 +70,7 @@ function App() {
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submitting:", { email, name });
+    console.log("Submittingss:", { email, name });
   };
 
   const exportAsImage = async () => {
