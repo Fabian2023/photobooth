@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   padding: 0;
   margin: 0;
@@ -34,14 +38,14 @@
 }
 
 .screen-two{
-  background-image: url('/img/brand1.png'),url('/img/fondo.png');
+  background-image: url('/img/fondo.png');
 }
 .screen-two-two{
   background-image: url('/img/fondo.png');
 }
-.screen-three{
+/* .screen-three{
   background-image: url('/img/silueta.png');
-}
+} */
 
 .screen-four{
   background-image: url('/img/fondo.png');

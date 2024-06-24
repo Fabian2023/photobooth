@@ -27,33 +27,33 @@ function App() {
       {
         key: "2000-hair-5",
         file: "img/logo1.png",
-        file2: "img/jugador5.png",
+        file2: "img/LQF 4.gif",
       },
       {
         key: "2000-hair-6",
         file: "img/logo2.png",
-        file2: "img/jugador3.png",
+        file2: "img/GRUPAL CHROMA_3.gif",
       },
       {
         key: "2000-hair-7",
         file: "img/logo3.png",
-        file2: "img/jugador4.png",
+        file2: "img/LQF 1ok.gif",
       },
       {
         key: "2000-hair-8",
         file: "img/logo4.png",
-        file2: "img/jugador2.png",
+        file2: "img/CHROMA.gif",
       },
       {
         key: "2000-hair-9",
         file: "img/logo5.png",
-        file2: "img/jugador1.png",
+        file2: "img/JUG. DERECHA CRUZADO BRAZOS.1.gif",
       },
       {
         key: "2000-hair-10",
         file: "img/logo6.png",
-        file2: "img/jugador6.png",
-      },
+        file2: "img/CHROMA_11.gif",
+      },  
     ],
   };
 
@@ -160,7 +160,7 @@ function App() {
                   src={`/img/numero${countdown}.png`}
                   alt="final countdown"
                 />
-                <img src="/img/silueta.png" alt="silueta" className="screen"></img>
+                
               </>
             )}
             
@@ -306,7 +306,7 @@ function App() {
           >
           <div
             className="image"
-            style={{ backgroundImage: `url('/img/brand1.png'),url('${hairstyle}'),url('${image}')`, position: 'absolute' }}
+            style={{ backgroundImage: `url('${hairstyle}'),url('${image}')`, position: 'absolute',  }}
           /> 
           </div>
 
