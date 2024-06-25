@@ -27,40 +27,51 @@ function App() {
       {
         key: "2000-hair-5",
         file: "img/logo1.png",
-        file2: "img/LQF 4.gif",
+        file2: "img/jugador3.png",
+        file3:"img/CHROMA.gif"
       },
       {
         key: "2000-hair-6",
         file: "img/logo2.png",
-        file2: "img/GRUPAL CHROMA_3.gif",
+        file2: "img/jugador1.png",
+        file3:"img/CHROMA.gif"
       },
       {
         key: "2000-hair-7",
         file: "img/logo3.png",
-        file2: "img/LQF 1ok.gif",
+        file2: "img/jugador2.png",
+        file3:"img/CHROMA.gif"
       },
       {
         key: "2000-hair-8",
         file: "img/logo4.png",
-        file2: "img/CHROMA.gif",
+        file2: "img/jugador4.png",
+        file3:"img/CHROMA.gif"
       },
       {
         key: "2000-hair-9",
         file: "img/logo5.png",
-        file2: "img/JUG. DERECHA CRUZADO BRAZOS.1.gif",
+        file2: "img/jugador5.png",
+        file3:"img/CHROMA.gif"
       },
       {
         key: "2000-hair-10",
         file: "img/logo6.png",
-        file2: "img/CHROMA_11.gif",
+        file2: "img/jugador5.png",
+        file3:"img/CHROMA.gif"
       },  
     ],
   };
 
   const [isCameraReady, setIsCameraReady] = useState(false);
+
   const handleUserMedia = () => {
-    setIsCameraReady(true);
+    setIsCameraReady(true);  
+    console.log("La cámara está activa");
   };
+
+  
+  
   const handleCheckboxChange = () => setIsChecked(!isChecked);
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -94,7 +105,7 @@ function App() {
     await axios.post("https://devapi.evius.co/api/correos-mocion", {
       email: email,
       html: `<img src=${imageUrl} />`,
-      subject: "Foto Copa Hp",
+      subject: "Foto basket",
     });
     setIsImageOnFirebase(false);
   };
@@ -112,6 +123,11 @@ function App() {
     setImage(imageSrc!);
     setScreenActive(5);
   };
+  const [selectedGif, setSelectedGif] = useState("");
+  const handleLogoClick = (file2:string, file3:string) => {
+    setHairStyle(file2);
+    setSelectedGif(file3);
+  };
 
   const renderScreen = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -123,15 +139,14 @@ function App() {
             className={`screen screen-two ${screenACtive === 2 && "active"}`}
           >
             <div className="left">
-              {hairstyles[product as keyof typeof hairstyles].map(
-                (data: { key: string; file: string; file2: string }) => (
-                  <div
-                    className={`menu menu-white ${data.key}`}
-                    onClick={() => setHairStyle(data.file2)}
-                    style={{ backgroundImage: `url(/${data.file})` }}
-                    role="button"
-                    aria-hidden="true"
-                    key={data.key}
+            {hairstyles[product as keyof typeof hairstyles].map((data) => (
+                <div
+                  className={`menu menu-white ${data.key}`}
+                  onClick={() => handleLogoClick(data.file2 || "", data.file3 || "")}
+                  style={{ backgroundImage: `url(/${data.file})` }}
+                  role="button"
+                  aria-hidden="true"
+                  key={data.key}
                   />
                 )
               )}
@@ -175,8 +190,8 @@ function App() {
             style={{
               width: "1080px",
               height: "1920px",
-              backgroundImage:
-                "url('/img/brand2.png'), url('/img/final2.png'),url('/img/fondo.png')",
+              // backgroundImage:
+              //   "url('/img/brand2.png'), url('/img/final2.png'),url('/img/fondo.png')",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -296,7 +311,7 @@ function App() {
             style={{
             width: "1080px",
             height: "1920px",
-            backgroundImage: `url('/img/fondo.png')`,
+            // backgroundImage: `url('/img/fondo.png')`,
             backgroundSize: 'cover',
             position: 'relative',
             display: 'flex',
@@ -306,7 +321,7 @@ function App() {
           >
           <div
             className="image"
-            style={{ backgroundImage: `url('${hairstyle}'),url('${image}')`, position: 'absolute',  }}
+            style={{ backgroundImage: `url('${selectedGif}'),url('${image}')`, position: 'absolute',  }}
           /> 
           </div>
 
@@ -319,7 +334,7 @@ function App() {
             <div style={{
             width: "1080px",
             height: "1920px",
-            backgroundImage: `url('/img/fondo.png')`,
+           
             backgroundSize: 'cover',
             position: 'relative',
             display: 'flex',
