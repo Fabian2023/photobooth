@@ -186,6 +186,11 @@ function App() {
                   src={`/img/numero${countdown}.png`}
                   alt="final countdown"
                 />
+                <img
+                  className="background"
+                  src={`/img/fondo.png`}
+                  alt="final countdown"
+                />
               </>
             )}
           </div>
@@ -306,6 +311,174 @@ function App() {
             {showIndividualImage && (
               <div>
                 <img src="/img/individual.png" alt="Individual" />
+                <div
+                  className="Cris-Ortiz"
+                  style={{
+                    position: "absolute",
+                    top: "43%",
+                    left: "20%",
+                    transform: "translate(-50%, -50%)",
+                    width: "190px",
+                    height: "220px",
+                    border: "none",
+                    zIndex: 1,
+                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                />
+                <div
+                  className="Davon-Reed"
+                  style={{
+                    position: "absolute",
+                    top: "43%",
+                    left: "51%",
+                    transform: "translate(-50%, -50%)",
+                    width: "190px",
+                    height: "220px",
+                    border: "none",
+                    zIndex: 1,
+                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                />
+                <div
+                  className="George-Conditt"
+                  style={{
+                    position: "absolute",
+                    top: "43%",
+                    left: "83%",
+                    transform: "translate(-50%, -50%)",
+                    width: "190px",
+                    height: "220px",
+                    border: "none",
+                    zIndex: 1,
+                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                />
+                <div
+                  className="Gian-Clavell"
+                  style={{
+                    position: "absolute",
+                    top: "58%",
+                    left: "20%",
+                    transform: "translate(-50%, -50%)",
+                    width: "190px",
+                    height: "220px",
+                    border: "none",
+                    zIndex: 1,
+                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                />
+                <div
+                  className="Jordan-Howard"
+                  style={{
+                    position: "absolute",
+                    top: "58%",
+                    left: "51%",
+                    transform: "translate(-50%, -50%)",
+                    width: "190px",
+                    height: "220px",
+                    border: "none",
+                    zIndex: 1,
+                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                />
+                <div
+                  className="Ysmael-Romero"
+                  style={{
+                    position: "absolute",
+                    top: "58%",
+                    left: "83%",
+                    transform: "translate(-50%, -50%)",
+                    width: "190px",
+                    height: "220px",
+                    border: "none",
+                    zIndex: 1,
+                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                />
+                <div
+                  className="Arnaldo-Toro"
+                  style={{
+                    position: "absolute",
+                    top: "74%",
+                    left: "20%",
+                    transform: "translate(-50%, -50%)",
+                    width: "190px",
+                    height: "220px",
+                    border: "none",
+                    zIndex: 1,
+                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                />
+                <div
+                  className="Stephen-Thomson"
+                  style={{
+                    position: "absolute",
+                    top: "74%",
+                    left: "51%",
+                    transform: "translate(-50%, -50%)",
+                    width: "190px",
+                    height: "220px",
+                    border: "none",
+                    zIndex: 1,
+                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                />
+                <div
+                  className="Tremont-Waters"
+                  style={{
+                    position: "absolute",
+                    top: "74%",
+                    left: "83%",
+                    transform: "translate(-50%, -50%)",
+                    width: "190px",
+                    height: "220px",
+                    border: "none",
+                    zIndex: 1,
+                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                />
+                <div
+                  className="Aleem-ford"
+                  style={{
+                    position: "absolute",
+                    top: "90%",
+                    left: "20%",
+                    transform: "translate(-50%, -50%)",
+                    width: "190px",
+                    height: "220px",
+                    border: "none",
+                    zIndex: 1,
+                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                />
+                <div
+                  className="Isaiah-Piñero"
+                  style={{
+                    position: "absolute",
+                    top: "90%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "190px",
+                    height: "220px",
+                    border: "none",
+                    zIndex: 1,
+                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                />
+                <div
+                  className="Jose-Alvarado"
+                  style={{
+                    position: "absolute",
+                    top: "90%",
+                    left: "83%",
+                    transform: "translate(-50%, -50%)",
+                    width: "190px",
+                    height: "220px",
+                    border: "none",
+                    zIndex: 1,
+                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                />
               </div>
             )}
             {showGroupImage && (
@@ -454,7 +627,7 @@ function App() {
             className="appcanvas"
           />
           {isCameraReady && (
-            <img src={`/img/Equipo pequeño.gif`} alt="jugador2" />//necesito volver esto dinamico
+            <img src={`/img/Equipo pequeño.gif`} alt="jugador2" /> //necesito volver esto dinamico
           )}
         </>
       )}

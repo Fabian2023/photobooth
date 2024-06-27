@@ -227,6 +227,15 @@ video, .appcanvas {
   
 }
 
+.background{
+  width: 1080px;
+  height: 1920px;
+  top:0% ;
+  z-index: 1;
+  position: absolute;
+
+}
+
 .countdown{
   width: 36%;
   position: absolute;
