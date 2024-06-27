@@ -8,7 +8,7 @@ import axios from "axios";
 
 function App() {
   const [screenACtive, setScreenActive] = useState(1);
-  const [product, setProduct] = useState(0);
+ // const [product, setProduct] = useState(0);
   const [hairstyle, setHairStyle] = useState("");
   const [countdown, setCountdown] = useState(3);
   const [image, setImage] = useState<string | null>("");
