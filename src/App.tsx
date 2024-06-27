@@ -22,6 +22,7 @@ function App() {
   const [showGroupIndividual, setShowGroupIndividual] = useState(false);
   const [showIndividualImage, setShowIndividualImage] = useState(false);
   const [showGroupImage, setShowGroupImage] = useState(false);
+  const [showBackground, setShowBackground] = useState(true);
 
   const hairstyles = {
     2000: [
@@ -99,13 +100,21 @@ function App() {
   const exportAsImage = async () => {
     const element = document.querySelector("#miDiv");
     if (element instanceof HTMLElement) {
+      // Verificar la visibilidad del fondo
+      const fondo = document.querySelector(".background");
+      if (fondo instanceof HTMLElement) {
+        console.log("Fondo encontrado y visible:", fondo);
+      } else {
+        console.log("Fondo no encontrado o no visible");
+      }
+  
       const canvas = await html2canvas(element, {
         allowTaint: true,
         useCORS: true,
         logging: true,
         scale: 1,
       });
-
+  
       const canvasImage = canvas.toDataURL("image/png", 1.0);
       const url = await uploadStringBase64(canvasImage);
       setImageUrl(url);
@@ -132,6 +141,9 @@ function App() {
       imageSrc = webcamRef.current?.getScreenshot();
     }
     setImage(imageSrc!);
+    setShowBackground(true);
+    console.log("estado del fondo",showBackground);
+    
     setScreenActive(5);
   };
   const [selectedGif, setSelectedGif] = useState("");
@@ -175,26 +187,28 @@ function App() {
           </div>
         );
         break;
-      case 3:
-        setTimeout(() => setCountdown(countdown - 1), 3000);
-        html = (
-          <div>
-            {countdown > 0 && isCameraReady && (
-              <>
-                <img
-                  className="countdown"
-                  src={`/img/numero${countdown}.png`}
-                  alt="final countdown"
-                />
-                <img
-                  className="background"
-                  src={`/img/fondo.png`}
-                  alt="final countdown"
-                />
-              </>
-            )}
-          </div>
-        );
+        case 3:
+  setTimeout(() => setCountdown(countdown - 1), 1000); // Reducido a 1000 para ajustar a 3 segundos
+  html = (
+    <div>
+      {/* Mostrar el fondo siempre que showBackground sea true */}
+      {showBackground && (
+        <>
+          <img
+            className="countdown"
+            src={`/img/numero${countdown}.png`}
+            alt="final countdown"
+          />
+          <img
+            className="background"
+            src={`/img/fondo.png`}
+            alt="final countdown"
+          />
+        </>
+      )}
+    </div>
+  );
+        
         break;
 
       case 7:
@@ -496,7 +510,9 @@ function App() {
                     border: "none",
                     zIndex: 1,
                   }}
-                  onClick={() => setScreenActive(3)}
+                  onClick={() => {
+                    setScreenActive(2), setProduct(2000);
+                  }}
                 />
                 <div
                   className="group3-box"
@@ -510,9 +526,7 @@ function App() {
                     border: "none",
                     zIndex: 1,
                   }}
-                  onClick={() => {
-                    setScreenActive(2), setProduct(2000);
-                  }}
+                  onClick={() => setScreenActive(3)}
                 />
               </div>
             )}
@@ -546,15 +560,18 @@ function App() {
       {screenACtive === 5 && (
         <div id="miDiv">
           <div
-            style={{
+             style={{
               width: "1080px",
               height: "1920px",
-              // backgroundImage: `url('/img/fondo.png')`,
+              backgroundImage: `url('/img/fondo.png')`,
               backgroundSize: "cover",
+              backgroundPosition: "center",
               position: "relative",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+             
+           
             }}
             id="f"
           >
@@ -566,6 +583,7 @@ function App() {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
+              
               }}
             />
             <div
@@ -573,6 +591,7 @@ function App() {
               style={{
                 backgroundImage: `url('${image}')`,
                 position: "absolute",
+                
               }}
             />
           </div>
