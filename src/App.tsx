@@ -6,7 +6,6 @@ import uploadStringBase64 from "./firebase/firestorage";
 import saveUserFirebase from "./firebase/firestore";
 import axios from "axios";
 
-
 function App() {
   const [screenACtive, setScreenActive] = useState(1);
   const [product, setProduct] = useState(0);
@@ -16,63 +15,76 @@ function App() {
   const [email, setEmail] = useState(""); //subir a firebase
   const [name, setName] = useState(""); // subir a firebase
   const [imageUrl, setImageUrl] = useState(""); // subir a firebase
-  const [isImageOnFirebase, setIsImageOnFirebase] = useState(false);
+  //const [isImageOnFirebase, setIsImageOnFirebase] = useState(false);
   const webcamRef = useRef<Webcam | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isChecked, setIsChecked] = useState(false);
+  // const [isChecked, setIsChecked] = useState(false);
+  const [showGroupIndividual, setShowGroupIndividual] = useState(false);
+  const [showIndividualImage, setShowIndividualImage] = useState(false);
+  const [showGroupImage, setShowGroupImage] = useState(false);
 
-  
   const hairstyles = {
     2000: [
       {
         key: "2000-hair-5",
-        file: "img/logo1.png",
-        file2: "img/jugador3.png",
-        file3:"img/CHROMA.gif"
+        file: "/img/group.png",
+        file2: "img/Equipo pequeño.gif",
+        file3: "img/Equipo pequeño.gif",
       },
       {
         key: "2000-hair-6",
         file: "img/logo2.png",
         file2: "img/jugador1.png",
-        file3:"img/CHROMA.gif"
+        file3: "img/CHROMA.gif",
       },
       {
         key: "2000-hair-7",
         file: "img/logo3.png",
         file2: "img/jugador2.png",
-        file3:"img/CHROMA.gif"
+        file3: "img/CHROMA.gif",
       },
       {
         key: "2000-hair-8",
         file: "img/logo4.png",
         file2: "img/jugador4.png",
-        file3:"img/CHROMA.gif"
+        file3: "img/CHROMA.gif",
       },
       {
         key: "2000-hair-9",
         file: "img/logo5.png",
         file2: "img/jugador5.png",
-        file3:"img/CHROMA.gif"
+        file3: "img/CHROMA.gif",
       },
       {
         key: "2000-hair-10",
         file: "img/logo6.png",
         file2: "img/jugador5.png",
-        file3:"img/CHROMA.gif"
-      },  
+        file3: "img/CHROMA.gif",
+      },
     ],
   };
 
   const [isCameraReady, setIsCameraReady] = useState(false);
 
   const handleUserMedia = () => {
-    setIsCameraReady(true);  
+    setIsCameraReady(true);
     console.log("La cámara está activa");
   };
 
-  
-  
-  const handleCheckboxChange = () => setIsChecked(!isChecked);
+  const handleUserMediaError = (error: string | DOMException) => {
+    console.error("Error al acceder a la cámara:", error);
+    if (error instanceof DOMException) {
+      console.error("Nombre del error:", error.name);
+      console.error("Mensaje de error:", error.message);
+    }
+    // Puedes agregar más manejo de errores según sea necesario
+  };
+
+  useEffect(() => {
+    console.log(`isCameraReady changed: ${isCameraReady}`);
+  }, [isCameraReady]);
+
+  //const handleCheckboxChange = () => setIsChecked(!isChecked);
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -85,7 +97,7 @@ function App() {
   };
 
   const exportAsImage = async () => {
-    const element = document.querySelector('#miDiv');
+    const element = document.querySelector("#miDiv");
     if (element instanceof HTMLElement) {
       const canvas = await html2canvas(element, {
         allowTaint: true,
@@ -97,7 +109,7 @@ function App() {
       const canvasImage = canvas.toDataURL("image/png", 1.0);
       const url = await uploadStringBase64(canvasImage);
       setImageUrl(url);
-      setIsImageOnFirebase(true);
+      //setIsImageOnFirebase(true);
     } else console.error("Element not found");
   };
 
@@ -107,12 +119,11 @@ function App() {
       html: `<img src=${imageUrl} />`,
       subject: "Foto basket",
     });
-    setIsImageOnFirebase(false);
+    //setIsImageOnFirebase(false);
   };
 
   const saveUser = () => {
     saveUserFirebase(email, name);
-
   };
 
   const processPicture = () => {
@@ -124,7 +135,7 @@ function App() {
     setScreenActive(5);
   };
   const [selectedGif, setSelectedGif] = useState("");
-  const handleLogoClick = (file2:string, file3:string) => {
+  const handleLogoClick = (file2: string, file3: string) => {
     setHairStyle(file2);
     setSelectedGif(file3);
   };
@@ -139,17 +150,18 @@ function App() {
             className={`screen screen-two ${screenACtive === 2 && "active"}`}
           >
             <div className="left">
-            {hairstyles[product as keyof typeof hairstyles].map((data) => (
+              {hairstyles[product as keyof typeof hairstyles].map((data) => (
                 <div
                   className={`menu menu-white ${data.key}`}
-                  onClick={() => handleLogoClick(data.file2 || "", data.file3 || "")}
+                  onClick={() =>
+                    handleLogoClick(data.file2 || "", data.file3 || "")
+                  }
                   style={{ backgroundImage: `url(/${data.file})` }}
                   role="button"
                   aria-hidden="true"
                   key={data.key}
-                  />
-                )
-              )}
+                />
+              ))}
             </div>
             <img
               src="/img/continuar.png"
@@ -166,8 +178,7 @@ function App() {
       case 3:
         setTimeout(() => setCountdown(countdown - 1), 3000);
         html = (
-          <div
-          >
+          <div>
             {countdown > 0 && isCameraReady && (
               <>
                 <img
@@ -175,14 +186,11 @@ function App() {
                   src={`/img/numero${countdown}.png`}
                   alt="final countdown"
                 />
-                
               </>
             )}
-            
           </div>
         );
         break;
-
 
       case 7:
         html = (
@@ -190,8 +198,7 @@ function App() {
             style={{
               width: "1080px",
               height: "1920px",
-              // backgroundImage:
-              //   "url('/img/brand2.png'), url('/img/final2.png'),url('/img/fondo.png')",
+              backgroundImage: "url('/img/email.png')",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -211,7 +218,7 @@ function App() {
               </div>
               <div>
                 <input
-                  className="form-input"
+                  className="form-name"
                   type="text"
                   id="name"
                   name="name"
@@ -223,34 +230,21 @@ function App() {
               </div>
             </form>
 
-            <div style={{ textAlign: "center", marginTop: "20px" }}>
-              <div>
-                <input
-                  className="custom-checkbox"
-                  type="checkbox"
-                  id="confirm"
-                  checked={isChecked}
-                  onChange={handleCheckboxChange}
-                />
-                <label className="terminos">
-                  {" "}
-                  Acepto terminos y condiciones.
-                </label>
-              </div>
+            <div style={{ textAlign: "center", marginTop: "120px" }}>
               <button
                 className="submit-button1"
                 onClick={() => {
-                  setScreenActive(1);
                   setHairStyle("");
                   setCountdown(3);
                   setIsCameraReady(false);
                   sendEmail();
                   saveUser();
-                  setEmail('');
-                  setName('');
-
+                  setEmail("");
+                  setName("");
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 2000);
                 }}
-                disabled={!isChecked && isImageOnFirebase}
               >
                 Enviar Foto
               </button>
@@ -273,12 +267,81 @@ function App() {
         html = (
           <div
             className={`screen screen-one ${screenACtive === 1 && "active"}`}
-            onClick={() => {
-              setScreenActive(2), setProduct(2000);
-            }}
-            role="button"
-            aria-hidden="true"
-          />
+            onClick={() => setShowGroupIndividual(true)} // Mostrar el div con la imagen
+          >
+            {showGroupIndividual && !showIndividualImage && !showGroupImage && (
+              <div>
+                <img src="/img/grupal-individual.png" alt="GrupalIndividual" />
+
+                <div
+                  className="center-box"
+                  style={{
+                    position: "absolute",
+                    top: "58%",
+                    left: "55%",
+                    transform: "translate(-50%, -50%)",
+                    width: "300px",
+                    height: "300px",
+                    border: "none",
+                    zIndex: 1,
+                  }}
+                  onClick={() => setShowIndividualImage(true)}
+                />
+                <div
+                  className="group-box"
+                  style={{
+                    position: "absolute",
+                    top: "78%",
+                    left: "55%",
+                    transform: "translate(-50%, -50%)",
+                    width: "300px",
+                    height: "300px",
+                    border: "none",
+                    zIndex: 1,
+                  }}
+                  onClick={() => setShowGroupImage(true)}
+                />
+              </div>
+            )}
+            {showIndividualImage && (
+              <div>
+                <img src="/img/individual.png" alt="Individual" />
+              </div>
+            )}
+            {showGroupImage && (
+              <div>
+                <img src="/img/group.png" alt="group" />
+                <div
+                  className="group2-box"
+                  style={{
+                    position: "absolute",
+                    top: "52%",
+                    left: "55%",
+                    transform: "translate(-50%, -50%)",
+                    width: "450px",
+                    height: "480px",
+                    border: "none",
+                    zIndex: 1,
+                  }}
+                  onClick={() => setScreenActive(3)}
+                />
+                <div
+                  className="group3-box"
+                  style={{
+                    position: "absolute",
+                    top: "82%",
+                    left: "55%",
+                    transform: "translate(-50%, -50%)",
+                    width: "450px",
+                    height: "480px",
+                    border: "none",
+                    zIndex: 1,
+                  }}
+                  onClick={() => setScreenActive(3)}
+                />
+              </div>
+            )}
+          </div>
         );
         break;
     }
@@ -292,7 +355,7 @@ function App() {
 
     if (screenACtive === 5) {
       setTimeout(() => {
-         setScreenActive(7), exportAsImage();
+        setScreenActive(7), exportAsImage();
       }, 5000);
     }
   }, [screenACtive]);
@@ -306,56 +369,70 @@ function App() {
       {/* Screens [ START ] */}
       {screenACtive !== 5 && renderScreen()}
       {screenACtive === 5 && (
-        <div id="miDiv" >
-            <div
-            style={{
-            width: "1080px",
-            height: "1920px",
-            // backgroundImage: `url('/img/fondo.png')`,
-            backgroundSize: 'cover',
-            position: 'relative',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }} id="f"
-          >
+        <div id="miDiv">
           <div
-            className="image"
-            style={{ backgroundImage: `url('${selectedGif}'),url('${image}')`, position: 'absolute',  }}
-          /> 
-          </div>
-
-        </div>
-      ) }
-      
-      {screenACtive === 3 && (
-        <>
-          {!isCameraReady && (
-            <div style={{
-            width: "1080px",
-            height: "1920px",
-           
-            backgroundSize: 'cover',
-            position: 'relative',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
+            style={{
+              width: "1080px",
+              height: "1920px",
+              // backgroundImage: `url('/img/fondo.png')`,
+              backgroundSize: "cover",
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            id="f"
+          >
             <img
-              src="/img/carga.gif"
-              alt="Cargando..."
+              src={selectedGif}
+              alt="Selected GIF"
               style={{
-                width: "400px",
-                height: "400px",
-                position: 'absolute',
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+            <div
+              className="image"
+              style={{
+                backgroundImage: `url('${image}')`,
+                position: "absolute",
               }}
             />
           </div>
+        </div>
+      )}
 
+      {screenACtive === 3 && (
+        <>
+          {!isCameraReady && (
+            <div
+              style={{
+                width: "1080px",
+                height: "1920px",
+                backgroundSize: "cover",
+                position: "relative",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src="/img/carga.gif"
+                alt="Cargando..."
+                style={{
+                  width: "400px",
+                  height: "400px",
+                  position: "absolute",
+                }}
+              />
+            </div>
           )}
           <Webcam
             ref={webcamRef}
             onUserMedia={handleUserMedia}
+            onUserMediaError={handleUserMediaError}
             mirrored={true}
             forceScreenshotSourceSize
             screenshotFormat="image/png"
@@ -375,9 +452,7 @@ function App() {
             className="appcanvas"
           />
           {isCameraReady && (
-            <div className="screen-three">
-              <img src={`/${hairstyle}`} alt="jugador2" />
-            </div>
+            <img src={`/img/Equipo pequeño.gif`} alt="jugador2" />//necesito volver esto dinamico
           )}
         </>
       )}
