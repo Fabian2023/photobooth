@@ -27,40 +27,74 @@ function App() {
   const hairstyles = {
     2000: [
       {
-        key: "2000-hair-5",
-        file: "/img/group.png",
+        key: "2000-hair-5", //grupo
+        file: "img/group.png",
         file2: "img/Equipo pequeño.gif",
-        file3: "img/Equipo pequeño.gif",
       },
       {
-        key: "2000-hair-6",
+        key: "2000-hair-6", //grupo
         file: "img/logo2.png",
-        file2: "img/jugador1.png",
-        file3: "img/CHROMA.gif",
+        file2: "img/EQUIPO 6 COMPLETO.gif",
       },
       {
-        key: "2000-hair-7",
+        key: "2000-hair-7", // Conditt
         file: "img/logo3.png",
-        file2: "img/jugador2.png",
-        file3: "img/CHROMA.gif",
+        file2: "img/JUGADOR AGACHADO.gif",
       },
       {
-        key: "2000-hair-8",
+        key: "2000-hair-8", //Romero
         file: "img/logo4.png",
-        file2: "img/jugador4.png",
-        file3: "img/CHROMA.gif",
+        file2: "img/JUGADOR BALON.gif",
       },
       {
-        key: "2000-hair-9",
+        key: "2000-hair-9", //Toro
         file: "img/logo5.png",
-        file2: "img/jugador5.png",
-        file3: "img/CHROMA.gif",
+        file2: "img/JUGADOR CAMISETA.gif",
       },
       {
-        key: "2000-hair-10",
+        key: "2000-hair-10", //criss
         file: "img/logo6.png",
-        file2: "img/jugador5.png",
-        file3: "img/CHROMA.gif",
+        file2: "img/JUGADOR CRUZADO BRAZOS.gif",
+      },
+      {
+        key: "2000-hair-10", //gian
+        file: "img/logo7.png",
+        file2: "img/JUGADOR DEDO.gif",
+      },
+      {
+        key: "2000-hair-10", //jose
+        file: "img/logo8.png",
+        file2: "img/JUGADOR DEDOS.gif",
+      },
+      {
+        key: "2000-hair-10", //tremon
+        file: "img/logo9.png",
+        file2: "img/JUGADOR ESPALDA.gif",
+      },
+      {
+        key: "2000-hair-10", //tremon
+        file: "img/logo10.png",
+        file2: "img/JUGADOR FIRME.gif",
+      },
+      {
+        key: "2000-hair-10", //davon
+        file: "img/logo11.png",
+        file2: "img/JUGADOR TRENZAS AGACHADO.gif",
+      },
+      {
+        key: "2000-hair-10", //steph
+        file: "img/logo12.png",
+        file2: "img/JUGADOR 11.gif",
+      },
+      {
+        key: "2000-hair-10", //ford
+        file: "img/logo13.png",
+        file2: "img/JUGADOR DEDOS 2.gif",
+      },
+      {
+        key: "2000-hair-10", //isaiah
+        file: "img/logo14.png",
+        file2: "img/JUGADOR TODO BIEN.gif",
       },
     ],
   };
@@ -107,14 +141,14 @@ function App() {
       } else {
         console.log("Fondo no encontrado o no visible");
       }
-  
+
       const canvas = await html2canvas(element, {
         allowTaint: true,
         useCORS: true,
         logging: true,
         scale: 1,
       });
-  
+
       const canvasImage = canvas.toDataURL("image/png", 1.0);
       const url = await uploadStringBase64(canvasImage);
       setImageUrl(url);
@@ -142,14 +176,14 @@ function App() {
     }
     setImage(imageSrc!);
     setShowBackground(true);
-    console.log("estado del fondo",showBackground);
-    
+    console.log("estado del fondo", showBackground);
+
     setScreenActive(5);
   };
-  const [selectedGif, setSelectedGif] = useState("");
-  const handleLogoClick = (file2: string, file3: string) => {
+
+  const handleLogoClick = (file2: string) => {
     setHairStyle(file2);
-    setSelectedGif(file3);
+    setScreenActive(3);
   };
 
   const renderScreen = () => {
@@ -164,10 +198,8 @@ function App() {
             <div className="left">
               {hairstyles[product as keyof typeof hairstyles].map((data) => (
                 <div
-                  className={`menu menu-white ${data.key}`}
-                  onClick={() =>
-                    handleLogoClick(data.file2 || "", data.file3 || "")
-                  }
+                  className={`menu menu-white${data.key}`}
+                  onClick={() => handleLogoClick(data.file2)}
                   style={{ backgroundImage: `url(/${data.file})` }}
                   role="button"
                   aria-hidden="true"
@@ -187,28 +219,28 @@ function App() {
           </div>
         );
         break;
-        case 3:
-  setTimeout(() => setCountdown(countdown - 1), 1000); // Reducido a 1000 para ajustar a 3 segundos
-  html = (
-    <div>
-      {/* Mostrar el fondo siempre que showBackground sea true */}
-      {showBackground && (
-        <>
-          <img
+      case 3:
+        setTimeout(() => setCountdown(countdown - 1), 1000); // Reducido a 1000 para ajustar a 3 segundos
+        html = (
+          <div>
+            {/* Mostrar el fondo siempre que showBackground sea true */}
+            {showBackground && (
+              <>
+                {/* <img
             className="countdown"
             src={`/img/numero${countdown}.png`}
             alt="final countdown"
-          />
-          <img
-            className="background"
-            src={`/img/fondo.png`}
-            alt="final countdown"
-          />
-        </>
-      )}
-    </div>
-  );
-        
+          /> */}
+                <img
+                  className="background"
+                  src={`/img/fondo.png`}
+                  alt="final countdown"
+                />
+              </>
+            )}
+          </div>
+        );
+
         break;
 
       case 7:
@@ -336,7 +368,16 @@ function App() {
                     height: "220px",
                     border: "none",
                     zIndex: 1,
-                    background: "rgba(0, 0, 255, 0.5)",
+                  }}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo6.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
                 <div
@@ -350,7 +391,17 @@ function App() {
                     height: "220px",
                     border: "none",
                     zIndex: 1,
-                    background: "rgba(0, 0, 255, 0.5)",
+                    
+                  }}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo11.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
                 <div
@@ -364,7 +415,17 @@ function App() {
                     height: "220px",
                     border: "none",
                     zIndex: 1,
-                    background: "rgba(0, 0, 255, 0.5)",
+                    
+                  }}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo3.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
                 <div
@@ -378,7 +439,17 @@ function App() {
                     height: "220px",
                     border: "none",
                     zIndex: 1,
-                    background: "rgba(0, 0, 255, 0.5)",
+                    
+                  }}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo7.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
                 <div
@@ -392,7 +463,17 @@ function App() {
                     height: "220px",
                     border: "none",
                     zIndex: 1,
-                    background: "rgba(0, 0, 255, 0.5)",
+                    
+                  }}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo10.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
                 <div
@@ -406,9 +487,20 @@ function App() {
                     height: "220px",
                     border: "none",
                     zIndex: 1,
-                    background: "rgba(0, 0, 255, 0.5)",
+                    
+                  }}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo4.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
+
                 <div
                   className="Arnaldo-Toro"
                   style={{
@@ -420,7 +512,17 @@ function App() {
                     height: "220px",
                     border: "none",
                     zIndex: 1,
-                    background: "rgba(0, 0, 255, 0.5)",
+                    
+                  }}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo5.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
                 <div
@@ -434,7 +536,17 @@ function App() {
                     height: "220px",
                     border: "none",
                     zIndex: 1,
-                    background: "rgba(0, 0, 255, 0.5)",
+                    
+                  }}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo12.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
                 <div
@@ -448,7 +560,17 @@ function App() {
                     height: "220px",
                     border: "none",
                     zIndex: 1,
-                    background: "rgba(0, 0, 255, 0.5)",
+                    
+                  }}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo9.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
                 <div
@@ -462,7 +584,17 @@ function App() {
                     height: "220px",
                     border: "none",
                     zIndex: 1,
-                    background: "rgba(0, 0, 255, 0.5)",
+                    
+                  }}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo13.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
                 <div
@@ -476,7 +608,17 @@ function App() {
                     height: "220px",
                     border: "none",
                     zIndex: 1,
-                    background: "rgba(0, 0, 255, 0.5)",
+                    
+                  }}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo14.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
                 <div
@@ -490,7 +632,17 @@ function App() {
                     height: "220px",
                     border: "none",
                     zIndex: 1,
-                    background: "rgba(0, 0, 255, 0.5)",
+                    
+                  }}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo8.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
               </div>
@@ -511,7 +663,14 @@ function App() {
                     zIndex: 1,
                   }}
                   onClick={() => {
-                    setScreenActive(2), setProduct(2000);
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/logo2.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
                   }}
                 />
                 <div
@@ -526,7 +685,16 @@ function App() {
                     border: "none",
                     zIndex: 1,
                   }}
-                  onClick={() => setScreenActive(3)}
+                  onClick={() => {
+                    const group2000 = hairstyles[2000].find(
+                      (data) => data.file === "img/group.png"
+                    );
+                    if (group2000) {
+                      handleLogoClick(group2000.file2);
+
+                      setProduct(2000);
+                    }
+                  }}
                 />
               </div>
             )}
@@ -560,7 +728,7 @@ function App() {
       {screenACtive === 5 && (
         <div id="miDiv">
           <div
-             style={{
+            style={{
               width: "1080px",
               height: "1920px",
               backgroundImage: `url('/img/fondo.png')`,
@@ -570,28 +738,14 @@ function App() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-             
-           
             }}
             id="f"
           >
-            <img
-              src={selectedGif}
-              alt="Selected GIF"
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              
-              }}
-            />
             <div
               className="image"
               style={{
                 backgroundImage: `url('${image}')`,
                 position: "absolute",
-                
               }}
             />
           </div>
@@ -645,9 +799,7 @@ function App() {
             style={{ display: `${isCameraReady ? "block" : "none"}` }}
             className="appcanvas"
           />
-          {isCameraReady && (
-            <img src={`/img/Equipo pequeño.gif`} alt="jugador2" /> //necesito volver esto dinamico
-          )}
+          {isCameraReady && <img src={`/${hairstyle}`} alt="Jugadores" />}
         </>
       )}
       {/* Screens [ END ] */}
